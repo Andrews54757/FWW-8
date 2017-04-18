@@ -11,7 +11,7 @@ FWW-8  Better that UTF-8
 
 # Encoding
 
-### FWW-8:5 Storage: Storage: ~8657571968
+### FWW-8:5 Storage: Storage: ~8,657,571,968
 
 | # Of Bytes | Bits |  Byte 1  |  Byte 2  |  Byte 3  |  Byte 4  |  Byte 5  |
 |:----------:|:----:|:--------:|:--------:|:--------:|:--------:|:--------:|
@@ -34,3 +34,19 @@ FWW-8  Better that UTF-8
 | 7          | 42   | 11100010 | 0xxxxxxx | 0xxxxxxx | 0xxxxxxx | 0xxxxxxx | 0xxxxxxx  |
 | ...        | ...  | 111yyyyy | 0xxxxxxx | 0xxxxxxx | 0xxxxxxx | 0xxxxxxx | 0xxxxxxx  |
 | 34         | 231  | 11111111 | 0xxxxxxx | 0xxxxxxx | 0xxxxxxx | 0xxxxxxx | 0xxxxxxx  |                               
+
+# UTF8 Comparison - Storage: 1,112,064
+## Features (From wikipedia)
+1. Backward compatibility: One-byte codes are used for the ASCII values 0 through 127, so ASCII text is valid UTF-8. Bytes in this range are not used anywhere else, so UTF-8 text can be processed by software that can handle extended ASCII but only applies special meaning to ASCII characters, as it will not accidentally see those ASCII characters in the middle of a multi-byte character.
+2. Clear indication of byte sequence length: The first byte indicates the number of bytes in the sequence. This makes UTF-8 a prefix code: reading from a stream can instantaneously decode each individual fully received sequence, without first having to wait for either the first byte of a next sequence or an end-of-stream indication. The length of multi-byte sequences is easily determined as it is simply the number of high-order 1s in the leading byte.
+3. Self-synchronization: The leading bytes and the continuation bytes do not share values (continuation bytes start with 10 while single bytes start with 0 and longer lead bytes start with 11). This means a search will not accidentally find the sequence for one character starting in the middle of another character. It also means the start of a character can be found from a random position by backing up at most 3 bytes to find the leading byte.
+
+## Encoding
+
+| # Of Bytes | Bits |  Byte 1  |  Byte 2  |  Byte 3  |  Byte 4  |
+|:----------:|:----:|:--------:|:--------:|:--------:|:--------:|
+|1	|7	|	0xxxxxxx			|
+|2	|11	|	110xxxxx	|10xxxxxx		|
+|3	|16	|	1110xxxx	|10xxxxxx	|10xxxxxx	|
+|4	|21	|	11110xxx	|10xxxxxx|	10xxxxxx	|10xxxxxx|
+
