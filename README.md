@@ -7,6 +7,7 @@ FWW-8  Better that UTF-8
 1. One-byte codes are used for the ASCII values 0 through 127, so ASCII text is valid FWW-8. FWW-8 multi-byte chars however, cannot be read by a ASCII interpreter.
 2. The first byte indicates whether there are more than one byte. If so, the next two bits are used to determine the length. This makes FWW-8 a prefix code: reading from a stream can instantaneously decode each individual fully received sequence, without first having to wait for either the first byte of a next sequence or an end-of-stream indication.
 3. The leading bytes for multi-byte charactors and the continuation bytes do not share values (continuation bytes start with 0 while multi-bytes leaders start with 1). It means that the start of a character can be found from a random position by backing up at most 5 (Or 34) bytes to find the leading byte.
+4. Tons of space. FWW-8:5 can store over 8.6 billion numbers. FWW-8:34 can store over 3.4 duovigintillion numbers.
 
 # Encoding
 
